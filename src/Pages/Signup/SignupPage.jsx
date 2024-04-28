@@ -1,13 +1,24 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const SignupPage = () => {
+  const { createUser } = useContext(AuthContext);
 
-    const handleSignup = (e) => {
-        e.preventDefault();
-      };
+  const handleSignup = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    // console.log(name, email, password);
+    createUser(email, password)
+      .then((res) => console.log(res.user))
+      .catch((err) => console.error(err.message));
+  };
 
-    return (
-        <div className="hero min-h-screen bg-base-200">
+  return (
+    <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
         <div className="w-1/2 text-center lg:text-left">
           <h1 className="text-5xl font-bold">Signup now!</h1>
@@ -48,6 +59,7 @@ const SignupPage = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
+                autoComplete="on"
                 type="password"
                 placeholder="Password"
                 name="password"
@@ -61,9 +73,10 @@ const SignupPage = () => {
                 <span className="label-text">Confirm Password</span>
               </label>
               <input
+                autoComplete="on"
                 type="password"
                 placeholder="Confirm Password"
-                name="password"
+                name="confirmpassword"
                 className="input input-bordered"
                 required
               />
@@ -75,17 +88,14 @@ const SignupPage = () => {
           </form>
           <p className="text-center">
             Already have an account?{" "}
-            <Link
-              className="text-center text-orange-500 underline"
-              to="/login"
-            >
+            <Link className="text-center text-orange-500 underline" to="/login">
               Login
             </Link>
           </p>
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default SignupPage;
