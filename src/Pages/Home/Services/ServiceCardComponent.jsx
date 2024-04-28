@@ -1,5 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 
 const ServiceCardComponent = ({ service }) => {
   return (
@@ -11,9 +11,11 @@ const ServiceCardComponent = ({ service }) => {
         <h2 className="card-title">{service.title}</h2>
         <div className="flex items-center justify-between mt-4">
           <p className="text-orange-600 font-bold">Price: ${service.price}</p>
-          <button className="btn bg-transparent text-orange-600 font-bold hover:bg-transparent hover:border-orange-600">
-          <FaArrowRight />
-          </button>
+          <Link to={`/checkout/${service._id}`}>
+            <button className="btn bg-transparent text-orange-600 font-bold hover:bg-transparent hover:border-orange-600">
+              <FaArrowRight />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
