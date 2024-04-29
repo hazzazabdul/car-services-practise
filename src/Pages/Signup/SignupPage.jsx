@@ -8,7 +8,7 @@ const SignupPage = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
+    // const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
     // console.log(name, email, password);
@@ -63,20 +63,6 @@ const SignupPage = () => {
                 type="password"
                 placeholder="Password"
                 name="password"
-                className="input input-bordered"
-                required
-              />
-            </div>
-
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Confirm Password</span>
-              </label>
-              <input
-                autoComplete="on"
-                type="password"
-                placeholder="Confirm Password"
-                name="confirmpassword"
                 className="input input-bordered"
                 required
               />

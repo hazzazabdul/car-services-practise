@@ -1,8 +1,20 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const LoginPage = () => {
+  const { loginUser } = useContext(AuthContext);
+
   const handleLogin = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    // console.table(email, password)
+
+    loginUser(email, password)
+      .then((res) => console.log(res.user))
+      .catch((err) => console.log(err.message));
   };
 
   return (
@@ -25,6 +37,7 @@ const LoginPage = () => {
               <input
                 type="email"
                 placeholder="email"
+                name="email"
                 className="input input-bordered"
                 required
               />
@@ -35,6 +48,7 @@ const LoginPage = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="password"
                 className="input input-bordered"
                 required
