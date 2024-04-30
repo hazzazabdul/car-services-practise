@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import ServiceCardComponent from "./ServiceCardComponent";
 
@@ -8,6 +9,7 @@ const ServicesComponent = () => {
     fetch("http://localhost:5000/services")
       .then((res) => res.json())
       .then((data) => setServices(data));
+
   }, []);
 
   return (

@@ -1,9 +1,13 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+
+import axios from "axios";
 
 const LoginPage = () => {
   const { loginUser } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -13,7 +17,20 @@ const LoginPage = () => {
     // console.table(email, password)
 
     loginUser(email, password)
-      .then((res) => console.log(res.user))
+      .then((res) => {
+        const loggedinUser = res.user;
+        console.log(loggedinUser);
+        const user = { email };
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.success) {
+              navigate(location?.state ? location?.state : "/login");
+            }
+          })
+          .catch((error) => console.log(error.message));
+      })
       .catch((err) => console.log(err.message));
   };
 
